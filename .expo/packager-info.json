@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
@@ -6,4 +7,13 @@
   "expoServerNgrokUrl": "https://f5-8fm.ntsum.frontend-mobile.exp.direct",
   "packagerNgrokUrl": "https://packager.f5-8fm.ntsum.frontend-mobile.exp.direct",
   "ngrokPid": 7572
+=======
+  "devToolsPort": 19003,
+  "expoServerPort": 19000,
+  "packagerPort": 19002,
+  "packagerPid": 17703,
+  "expoServerNgrokUrl": "https://f5-8fm.katiefelten.frontend-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.f5-8fm.katiefelten.frontend-mobile.exp.direct",
+  "ngrokPid": 17711
+>>>>>>> 127a59bd639c855578c0cea6190338ce11fb08fd
 }

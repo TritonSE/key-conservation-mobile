@@ -25,6 +25,7 @@ import {
 import styles from "../../constants/Comments/Comments";
 import Comment from "./Comment";
 
+// url for heroku staging vs production server
 const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 class CommentsView extends React.Component {
@@ -112,7 +113,7 @@ class CommentsView extends React.Component {
                       }}
                     />
                   )}
-                  {/* Displays latest comment unless the user is viewing all the comments. */}
+                  {/* Displays latest comment unless the user is viewing all the campaign comments. */}
                 </View>
                 <View style={styles.commentText}>
                   <Text style={styles.username}>
@@ -224,7 +225,6 @@ class CommentsView extends React.Component {
         }
       })
       .then(res => {
-        console.log(res.data.data, "deleting stuff");
         const filteredCampaigns = this.state.campaignComments.filter(
           c => c.comment_id !== res.data.data
         );
