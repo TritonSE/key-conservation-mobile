@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ListItem } from 'react-native-elements';
@@ -297,7 +298,8 @@ class ViewCampScreen extends React.Component {
 const mapStateToProps = state => ({
   selectedCampaign: state.selectedCampaign,
   currentUser: state.currentUser,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  // token: state.token
 });
 
 export default connect(

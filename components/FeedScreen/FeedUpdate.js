@@ -7,6 +7,7 @@ import { ListItem } from "react-native-elements";
 import { useDispatch, connect } from "react-redux";
 import { AmpEvent } from "../withAmplitude";
 import {
+  getCampaigns,
   getProfileData,
   setCampaign,
   toggleCampaignText
@@ -115,7 +116,7 @@ const FeedUpdate = props => {
         data={data}
         token={props.token}
         currentUserProfile={props.currentUserProfile}
-        update={true}
+        getCampaigns={props.getCampaigns}
       />
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
@@ -145,6 +146,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
+    getCampaigns,
     getProfileData,
     setCampaign,
     toggleCampaignText

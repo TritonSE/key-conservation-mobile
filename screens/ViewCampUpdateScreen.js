@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 
 import { getProfileData, getCampaign } from '../store/actions';
 import BackButton from '../components/BackButton';
+import LikeButton from '../components/LikeButton'
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -67,6 +68,11 @@ class ViewCampUpdateScreen extends React.Component {
             style={styles.campImgContain}
           />
           <View style={styles.campDescContain}>
+            <LikeButton 
+              data={this.props.selectedCampaign}
+              token={this.props.token}
+              currentUserProfile={this.props.currentUserProfile}
+            />
             <Text style={styles.campDescName}>
               {this.props.selectedCampaign.camp_name}
             </Text>
@@ -96,7 +102,9 @@ class ViewCampUpdateScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedCampaign: state.selectedCampaign
+  selectedCampaign: state.selectedCampaign,
+  currentUserProfile: state.currentUserProfile,
+  token: state.token
 });
 
 const styles = StyleSheet.create({

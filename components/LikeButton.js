@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import axios from "axios";
 import { FontAwesome } from "@expo/vector-icons";
 
+
 // url for heroku staging vs production server
 const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
@@ -12,13 +13,35 @@ const LikeButton = props => {
   const [userLiked, setUserLiked] = useState(false);
 
   useEffect(() => {
+    console.log('something')
     const liked = props.data.likes.filter(
       l => l.users_id === props.currentUserProfile.id
     );
     if (liked.length > 0) {
       setUserLiked(true);
     }
-  }, []);
+
+    getLikes(props.data.camp_id)
+
+  }, [ likes ]);
+
+
+  const getLikes = (id) => {
+      axios
+        .get(`${seturl}social/likes/${id}`,
+        {
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${props.token}`,
+                "Content-Type": "application/json"
+            }
+        }
+        )
+        .then(res => {
+            setLikes(res.data.data.length)
+            // setUserLiked(!userLiked)
+        })
+  }
 
   const addLike = () => {
       console.log(props.data.update_id)
@@ -39,8 +62,9 @@ const LikeButton = props => {
         }
       )
       .then(res => {
-        setLikes(res.data.data.length);
+        // setLikes(res.data.data.length);
         setUserLiked(true);
+        props.getCampaigns()
       })
       .catch(err => {
         console.log(err);
@@ -64,8 +88,9 @@ const LikeButton = props => {
             }
           )
           .then(res => {
-            setLikes(likes - 1);
+            // setLikes(likes - 1);
             setUserLiked(false);
+            props.getCampaigns()
           })
           .catch(err => {
             console.log(err);
