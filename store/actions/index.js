@@ -602,16 +602,27 @@ export const deleteComment = id => async dispatch => {
     });
 };
 
-export const addLike = (id, userId) => async dispatch => {
-  console.log('id', id, 'user id', userId)
-  let token = await SecureStore.getItemAsync('accessToken');
-  axios
-    .post(`https://key-conservation-staging.herokuapp.com/api/social/likes/${id}`,
-      {users_id: userId, camp_id: id},
-      {headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }})
-    .then(console.log('word'))
-}
+// export const getLikes = (id, userId) => async dispatch => {
+//   let token = await SecureStore.getItemAsync('accessToken')
+//   axios
+//     .get(`${seturl}social/likes/${id}`,
+//     {
+//         headers: {
+//             Accept: "application/json",
+//             Authorization: `Bearer ${token}`,
+//             "Content-Type": "application/json"
+//         }
+//     }
+//     )
+//     .then(res => {
+//         setLikes(res.data.data.length)
+//         const liked = res.data.data.filter(
+//             l => l.users_id === userId
+//           );
+//           if (liked.length > 0) {
+//             return true;
+//           } else {
+//             return false
+//           }
+//     })
+// }

@@ -17,6 +17,7 @@ import LikeButton from '../components/LikeButton'
 
 const deviceWidth = Dimensions.get('window').width;
 
+
 class ViewCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -30,10 +31,14 @@ class ViewCampUpdateScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerLeft: <BackButton navigation={navigation} />,
+      headerLeft: <BackButton navigation={navigation} onPress={refreshLikes} />,
       headerRight: <View />
     };
   };
+
+  refreshLikes = (refresh, setRefresh) => {
+    setRefresh(!refresh)
+  }
 
   goToProfile = async () => {
     await this.props.getProfileData(this.props.selectedCampaign.users_id);
@@ -72,6 +77,8 @@ class ViewCampUpdateScreen extends React.Component {
               data={this.props.selectedCampaign}
               token={this.props.token}
               currentUserProfile={this.props.currentUserProfile}
+              selectedCampaign={this.props.selectedCampaign}
+              refreshLikes={refreshLikes}
             />
             <Text style={styles.campDescName}>
               {this.props.selectedCampaign.camp_name}
