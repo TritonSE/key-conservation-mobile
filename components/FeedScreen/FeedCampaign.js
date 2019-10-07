@@ -237,10 +237,10 @@ const FeedCampaign = props => {
             rate={1.0}
             volume={1.0}
             isMuted={false}
-            resizeMode='cover'
+            resizeMode="cover"
             shouldPlay
             isLooping
-            style={{ width: 300, height: 300 }}
+            style={{ width: 420, height: 400 }}
           />
           {/* <ImageBackground
             source={{ uri: data.camp_img }}
@@ -256,26 +256,26 @@ const FeedCampaign = props => {
         {userLiked === false ? (
           <FontAwesome
             onPress={() => addLike()}
-            name='heart-o'
+            name="heart-o"
             style={styles.outline}
           />
         ) : (
           <FontAwesome
             onPress={() => deleteLike()}
-            name='heart'
+            name="heart"
             style={styles.fill}
           />
         )}
         {userBookmarked === false ? (
           <FontAwesome
             onPress={() => addBookmark()}
-            name='bookmark-o'
+            name="bookmark-o"
             style={styles.outline}
           />
         ) : (
           <FontAwesome
             onPress={() => deleteBookmark()}
-            name='bookmark'
+            name="bookmark"
             style={styles.bookmarkFill}
           />
         )}

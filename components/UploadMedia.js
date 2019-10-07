@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TouchableOpacity, View, Text, Image } from 'react-native';
+import { TouchableOpacity, View, Text, Image, Platform } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
@@ -26,13 +26,13 @@ class UploadMedia extends Component {
   };
 
   _pickImage = async () => {
-    let result = await DocumentPicker.getDocumentAsync({});
-    // let result = await ImagePicker.launchImageLibraryAsync({
-    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
-    //   allowsEditing: true,
-    //   aspect: [1, 1],
-    //   quality: 1
-    // });
+    // let result = await DocumentPicker.getDocumentAsync({});
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1
+    });
     // console.log(result, 'Pick Image ----------------------------------');
     if (!result.cancelled) {
       this.setState(
@@ -55,7 +55,7 @@ class UploadMedia extends Component {
   };
 
   render() {
-    console.log('Testing video');
+    console.log(this.state);
     const { media } = this.state;
     return (
       <>
@@ -64,32 +64,49 @@ class UploadMedia extends Component {
           <TouchableOpacity onPress={this._pickImage}>
             <View style={styles.touchableView}>
               <Text style={styles.touchableText}>
-                Click here to choose an image
+                Click here to choose an image or video
               </Text>
             </View>
           </TouchableOpacity>
         </View>
         <View style={styles.imageContain}>
           {media ? (
-            // to make profile image circular, border radius must be set at half of height/width
-            <Image
-              source={{ uri: media }}
-              style={{
-                height: 300,
-                width: 300,
-                borderRadius: this.props.circular ? 150 : 0
-              }}
-            />
-          ) : (
-            <Video
-              source={{ uri: media }}
-              style={{
-                height: 300,
-                width: 300,
-                borderRadius: this.props.circular ? 150 : 0
-              }}
-            />
-          )}
+            Platform.OS === 'android' ? (
+              <Image
+                source={{
+                  uri: media
+                }}
+                style={{
+                  height: 300,
+                  width: 300,
+                  borderRadius: this.props.circular ? 150 : 0
+                }}
+              />
+            ) : media.includes('.mp4') ||
+              media.includes('.mp3') ||
+              media.includes('.mov') ? (
+              <Video
+                source={{ uri: media }}
+                rate={1.0}
+                volume={1.0}
+                isMuted={false}
+                resizeMode="cover"
+                useNativeControls={true}
+                style={{ width: 300, height: 300 }}
+              />
+            ) : (
+              <Image
+                source={{
+                  uri: media
+                }}
+                style={{
+                  height: 300,
+                  width: 300,
+                  borderRadius: this.props.circular ? 150 : 0
+                }}
+              />
+            )
+          ) : null}
         </View>
       </>
     );
