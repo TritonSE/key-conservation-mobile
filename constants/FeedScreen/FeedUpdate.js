@@ -47,6 +47,21 @@ export default {
     fontFamily: "OpenSans-SemiBold",
     fontSize: 18
   },
+  heartOutline: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: "#00FF9D"
+  },
+  heartFill: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: "#00FF9D"
+  },
+  likes: {
+    marginLeft: 15
+  },
   campDesc: {
     marginLeft: 15,
     paddingTop: 15,
@@ -73,8 +88,8 @@ export default {
     paddingBottom: 3
   },
   demarcation: {
-    height: 4,
-    width: "100%",
-    backgroundColor: "#fff"
+    marginTop: 15,
+    borderTopWidth: 2,
+    borderTopColor: "#eee"
   }
 };
