@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList
 } from 'react-native';
+import { Video } from 'expo-av';
 import moment from 'moment';
 import { Avatar } from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
@@ -211,6 +212,7 @@ const FeedCampaign = props => {
       });
   };
 
+  console.log('WE ARE TESTING VIDEO HERE NOW');
   return (
     <View style={styles.container}>
       <ListItem
@@ -225,14 +227,29 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          <ImageBackground
+          <Video
+            source={{
+              // uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+              // uri: 'https://www.google.com'
+              // uri: 'https://www.youtube.com/watch?v=gmRTQfLrbMY'
+              uri: data.camp_img
+            }}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode='cover'
+            shouldPlay
+            isLooping
+            style={{ width: 300, height: 300 }}
+          />
+          {/* <ImageBackground
             source={{ uri: data.camp_img }}
             style={styles.campImgContain}
           >
             <View style={styles.goToCampaignButton} onPress={goToCampaign}>
               <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
             </View>
-          </ImageBackground>
+          </ImageBackground> */}
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>

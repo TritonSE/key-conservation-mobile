@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TouchableOpacity, View, Text,Image} from 'react-native';
+import { TouchableOpacity, View, Text, Image } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import * as ImagePicker from 'expo-image-picker';
+import { Video } from 'expo-av';
+import * as DocumentPicker from 'expo-document-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { setMedia } from '../store/actions';
 
-import styles from '../constants/UploadMedia'
+import styles from '../constants/UploadMedia';
 
 class UploadMedia extends Component {
   state = {
@@ -24,12 +26,13 @@ class UploadMedia extends Component {
   };
 
   _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1
-    });
+    let result = await DocumentPicker.getDocumentAsync({});
+    // let result = await ImagePicker.launchImageLibraryAsync({
+    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //   allowsEditing: true,
+    //   aspect: [1, 1],
+    //   quality: 1
+    // });
     // console.log(result, 'Pick Image ----------------------------------');
     if (!result.cancelled) {
       this.setState(
@@ -48,36 +51,50 @@ class UploadMedia extends Component {
   clearState = () => {
     this.setState({
       media: ''
-    })
-  }
+    });
+  };
 
   render() {
+    console.log('Testing video');
     const { media } = this.state;
     return (
       <>
-        <NavigationEvents
-          onDidBlur={this.clearState}
-        />
+        <NavigationEvents onDidBlur={this.clearState} />
         <View style={styles.imageButton}>
-          <TouchableOpacity
-            onPress={this._pickImage}
-          >
+          <TouchableOpacity onPress={this._pickImage}>
             <View style={styles.touchableView}>
-              <Text style={styles.touchableText}>Click here to choose an image</Text>
+              <Text style={styles.touchableText}>
+                Click here to choose an image
+              </Text>
             </View>
           </TouchableOpacity>
-          </View>
-          <View style={styles.imageContain}>
-            {media ?
+        </View>
+        <View style={styles.imageContain}>
+          {media ? (
             // to make profile image circular, border radius must be set at half of height/width
-            <Image source={{ uri: media }} style={{height: 300, width: 300, borderRadius: this.props.circular ? 150 : 0}}/> : null}
-          </View>
+            <Image
+              source={{ uri: media }}
+              style={{
+                height: 300,
+                width: 300,
+                borderRadius: this.props.circular ? 150 : 0
+              }}
+            />
+          ) : (
+            <Video
+              source={{ uri: media }}
+              style={{
+                height: 300,
+                width: 300,
+                borderRadius: this.props.circular ? 150 : 0
+              }}
+            />
+          )}
+        </View>
       </>
     );
   }
 }
-
-
 
 export default connect(
   null,
